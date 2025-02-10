@@ -1,15 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Open_Sans, Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
+import Image from "next/image";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const openSans = Open_Sans({
   subsets: ["latin"],
+  weight: ["400", "600", "700"], // Regular, Semi-Bold, Bold
+  variable: "--font-open-sans", // For use with Tailwind CSS
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
+  weight: ["400", "600", "700"], // Regular, Semi-Bold, Bold
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,10 +35,49 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head></head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${openSans.variable} ${playfairDisplay.className} ${poppins.className} antialiased`}
       >
-        {children}
+        <div className="">
+          <header className="bg-white mt-top">
+            <div className="my-size">
+              <Link href="/" className="flex items-center space-x-2">
+                <Image
+                  src="/logo.png"
+                  alt="Blog Logo"
+                  width={322}
+                  height={100}
+                />
+              </Link>
+
+              {/* Ikona menu na mobile */}
+              <button className="md:hidden text-gray-600">
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                </svg>
+              </button>
+              <div className="mt-top line pb-2">
+                <nav>
+                  <p className="navigate">Blog</p>
+                </nav>
+              </div>
+            </div>
+          </header>
+
+          <main className="">{children}</main>
+        </div>
       </body>
     </html>
   );
