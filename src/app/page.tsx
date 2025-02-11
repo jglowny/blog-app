@@ -1,7 +1,8 @@
 import Head from "next/head";
-import { fetchAllCategoriesParallel } from "../../src/utils/api";
+import { fetchAllCategoriesParallel } from "../utils/api";
 import PostList from "../components/PostList";
-import CategoryList from "@/components/CategoryList";
+import CategoryList from "../components/CategoryList";
+
 export default async function Page() {
   const data = await fetchAllCategoriesParallel();
   const articles = data.map(

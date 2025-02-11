@@ -3,14 +3,15 @@ import { getPostByCategory } from "../../../utils/api";
 import CategoryList from "../../../components/CategoryList";
 import PostList from "../../../components/PostList";
 
-interface PageProps {
-  params: {
-    category: string;
-  };
-}
+type Params = Promise<{ category: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-export default async function Page({ params }: PageProps) {
-  const { category } = await params;
+export default async function Page(props: {
+  params: Params;
+  searchParams: SearchParams;
+}) {
+  const params = await props.params;
+  const category = params.category;
 
   interface PostData {
     id: number;
